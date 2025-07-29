@@ -34,10 +34,8 @@ st.markdown("""
 
 # ✅ 显示跳转按钮，跳转到 visa_payment.py 页面
 if st.button("➡️ 前往支付页面"):
-    st.switch_page("pages/visa_payment.py")  # 注意路径
+    st.switch_page("visa_payment")  # 注意路径
 
-
-st.button("🚀 我想立即使用这个服务（敬请期待）")
 
 st.divider()
 
