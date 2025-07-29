@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 # visa_helper_showcase.py
 
 import streamlit as st
