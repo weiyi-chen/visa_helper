@@ -5,18 +5,22 @@ import datetime
 import base64
 import requests
 
-def call_ollama_local(prompt, model="deepseek-r1:1.5b"):
+
+def call_ollama_local(prompt):
+    url = "http://localhost:11434/api/chat"
+    headers = {"Content-Type": "application/json"}
+
+    payload = {
+        "model": "deepseek-r1:1.5b",
+        "messages": [
+            {"role": "user", "content": prompt}
+        ]
+    }
+
     try:
-        response = requests.post(
-            "http://localhost:11434/api/generate",
-            json={
-                "model": model,
-                "prompt": prompt,
-                "stream": False
-            }
-        )
+        response = requests.post(url, headers=headers, json=payload)
         response.raise_for_status()
-        return response.json()["response"]
+        return response.json()['message']['content']
     except Exception as e:
         return f"❌ 本地模型调用失败：{e}"
 
