@@ -66,9 +66,8 @@ if submitted:
 4. 其他注意事项
 """
 
-    with st.spinner("GPT 正在生成中..."):
-        response = openai.ChatCompletion.create(...)
-        result = response['choices'][0]['message']['content']
+    with st.spinner("🤖 本地模型正在生成中..."):
+        result = call_ollama_local(prompt)
 
 
     # 展示结果
