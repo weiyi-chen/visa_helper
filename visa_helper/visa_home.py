@@ -35,11 +35,28 @@ st.markdown("""
 # ✅ 用超链接代替 switch_page
 st.markdown(
     """
-    <a href="/visa_payment" target="_self">
-        <button style="font-size:20px; padding:10px 20px;">➡️ 前往支付页面</button>
-    </a>
+    <style>
+    .pay-btn {
+        display: inline-block;
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding: 0.6em 1.5em;
+        color: #fff;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 4px 14px 0 rgba(31, 38, 135, .35);
+        transition: all .2s;
+    }
+    .pay-btn:hover {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        transform: translateY(-2px);
+    }
+    </style>
+    <a href="/visa_payment" target="_self" class="pay-btn">🚀 立即支付 ¥19.9</a>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 st.divider()
 
