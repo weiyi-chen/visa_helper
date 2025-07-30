@@ -2,7 +2,6 @@
 
 import streamlit as st
 import datetime
-import openai
 import base64
 import requests
 
