@@ -2,8 +2,24 @@
 
 import streamlit as st
 import datetime
-import openai
 import base64
+import requests
+
+def call_ollama_local(prompt, model="deepseek-r1:1.5b"):
+    try:
+        response = requests.post(
+            "http://localhost:11434/api/generate",
+            json={
+                "model": model,
+                "prompt": prompt,
+                "stream": False
+            }
+        )
+        response.raise_for_status()
+        return response.json()["response"]
+    except Exception as e:
+        return f"❌ 本地模型调用失败：{e}"
+
 
 # 设定标题
 st.set_page_config(page_title="签证助手生成页")
@@ -49,19 +65,8 @@ if submitted:
 4. 其他注意事项
 """
 
-    # 调用 OpenAI GPT（你需要设置 openai.api_key）
-    openai.api_key = "your-openai-api-key"
-
-    with st.spinner("GPT 正在生成中..."):
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=[
-                {"role": "system", "content": "你是一位专业签证顾问"},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.7
-        )
-        result = response['choices'][0]['message']['content']
+    with st.spinner("🤖 本地模型正在生成中..."):
+    result = call_ollama_local(prompt)
 
     # 展示结果
     st.markdown("### 📋 签证助手包内容如下：")
