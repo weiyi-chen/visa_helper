@@ -26,7 +26,29 @@ with col2:
     else:
         st.error("未找到 alipay_qr.jpg")
 
-st.divider()
 
-if st.button("✅ 我已支付 ¥19.9"):
-    st.switch_page("visa_generate")
+
+st.markdown(
+    """
+    <style>
+    .next-btn {
+        display: inline-block;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 0.5em 1.2em;
+        color: #fff;
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        border: none;
+        border-radius: 25px;
+        text-decoration: none;
+    }
+    .next-btn:hover {
+        background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+    }
+    </style>
+    <a href="/visa_generate" target="_self" class="next-btn">🚀 开始生成签证助手包</a>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.divider()
