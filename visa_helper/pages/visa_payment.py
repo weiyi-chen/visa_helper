@@ -27,8 +27,6 @@ with col2:
         st.error("未找到 alipay_qr.jpg")
 
 st.divider()
-uploaded = st.file_uploader("📤 上传支付截图", type=["png", "jpg", "jpeg"])
-if uploaded:
-    st.success("收到上传截图！")
-    if st.button("🚀 开始生成签证助手包"):
-        st.switch_page("visa_generate")   # 去掉 .py，传页面名即可
+
+if st.button("✅ 我已支付 ¥19.9"):
+    st.switch_page("visa_generate")
