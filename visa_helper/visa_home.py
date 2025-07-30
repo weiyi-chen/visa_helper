@@ -37,23 +37,30 @@ st.markdown(
     """
     <style>
     .pay-btn {
-        display: inline-block;
-        font-size: 0.9rem;          /* 更小字号 */
-        font-weight: 500;
-        padding: 0.4em 1em;
-        color: #333;                /* 深色字 */
-        background: #e6f3ff;        /* 超浅蓝背景 */
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3em;
+        font-size: 1rem;            /* 稍大 */
+        font-weight: 700;           /* 粗体 */
+        padding: 0.45em 1.1em;
+        color: #333;
+        background: #e6f3ff;
         border: 1px solid #b3d7ff;
-        border-radius: 20px;
-        text-decoration: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-        transition: all .2s;
+        border-radius: 22px;
+        text-decoration: none !important;  /* 去掉下划线 */
+        box-shadow: 0 2px 6px rgba(0,0,0,.08);
+        transition: background .2s;
     }
     .pay-btn:hover {
         background: #cce7ff;
     }
+    .pay-btn span {                /* 放大图标 */
+        font-size: 1.2em;
+    }
     </style>
-    <a href="/visa_payment" target="_self" class="pay-btn">🚀 立即支付 ¥19.9</a>
+    <a href="/visa_payment" target="_self" class="pay-btn">
+        <span>🚀</span>立即支付 ¥19.9
+    </a>
     """,
     unsafe_allow_html=True,
 )
