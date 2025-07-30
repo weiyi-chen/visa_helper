@@ -27,26 +27,26 @@ with col2:
         st.error("未找到 alipay_qr.jpg")
 
 
-
 st.markdown(
     """
     <style>
-    .next-btn {
+    .plain-next {
         display: inline-block;
-        font-size: 1rem;
-        font-weight: 600;
-        padding: 0.5em 1.2em;
-        color: #fff;
-        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-        border: none;
-        border-radius: 25px;
-        text-decoration: none;
+        font-family: inherit;   /* 用 Streamlit 默认字体 */
+        font-size: inherit;     /* 用 Streamlit 默认字号 */
+        font-weight: inherit;   /* 用 Streamlit 默认粗细 */
+        padding: 0.4em 1em;
+        color: #333;            /* 默认深灰字 */
+        background: #e6f3ff;
+        border: 1px solid #b3d7ff;
+        border-radius: 20px;
+        text-decoration: none !important;
     }
-    .next-btn:hover {
-        background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+    .plain-next:hover {
+        background: #cce7ff;
     }
     </style>
-    <a href="/visa_generate" target="_self" class="next-btn">🚀 开始生成签证助手包</a>
+    <a href="/visa_generate" target="_self" class="plain-next">🚀 开始生成签证助手包</a>
     """,
     unsafe_allow_html=True,
 )
