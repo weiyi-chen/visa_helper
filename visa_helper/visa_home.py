@@ -38,20 +38,19 @@ st.markdown(
     <style>
     .pay-btn {
         display: inline-block;
-        font-size: 1.1rem;
-        font-weight: 600;
-        padding: 0.6em 1.5em;
-        color: #fff;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border: none;
-        border-radius: 50px;
+        font-size: 0.9rem;          /* 更小字号 */
+        font-weight: 500;
+        padding: 0.4em 1em;
+        color: #333;                /* 深色字 */
+        background: #e6f3ff;        /* 超浅蓝背景 */
+        border: 1px solid #b3d7ff;
+        border-radius: 20px;
         text-decoration: none;
-        box-shadow: 0 4px 14px 0 rgba(31, 38, 135, .35);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         transition: all .2s;
     }
     .pay-btn:hover {
-        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-        transform: translateY(-2px);
+        background: #cce7ff;
     }
     </style>
     <a href="/visa_payment" target="_self" class="pay-btn">🚀 立即支付 ¥19.9</a>
