@@ -46,7 +46,7 @@ st.markdown(
         background: #cce7ff;
     }
     </style>
-    <a href="/visa_generate" target="_self" class="plain-next">🚀 开始生成签证助手包</a>
+    <a href="/visa_generate" target="_self" class="plain-next">🚀 我已支付，开始生成签证助手包</a>
     """,
     unsafe_allow_html=True,
 )
