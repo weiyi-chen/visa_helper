@@ -59,7 +59,7 @@ st.markdown(
     }
     </style>
     <a href="/visa_payment" target="_self" class="pay-btn">
-        <span>🚀</span>立即支付 ¥19.9
+        <span>🚀</span>立即支付
     </a>
     """,
     unsafe_allow_html=True,
