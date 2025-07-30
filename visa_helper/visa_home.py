@@ -32,11 +32,15 @@ st.markdown("""
 - 上传信息后自动生成申请表草稿
 """)
 
-# ✅ 显示跳转按钮，跳转到 visa_payment.py 页面
-if st.button("➡️ 前往支付页面"):
-    st.switch_page("visa_payment")  # 注意路径
-
-
+# ✅ 用超链接代替 switch_page
+st.markdown(
+    """
+    <a href="/visa_payment" target="_self">
+        <button style="font-size:20px; padding:10px 20px;">➡️ 前往支付页面</button>
+    </a>
+    """,
+    unsafe_allow_html=True
+)
 st.divider()
 
 # FAQ
