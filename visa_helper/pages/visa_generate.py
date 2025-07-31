@@ -10,7 +10,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 def call_ollama_local(prompt):
-    url = "192.168.1.142:11434/api/chat"
+    url = "http://192.168.1.142:11434/api/chat"
     payload = {
     "model": "mistral-chat",  # ✅ 或者 "mistral" / "phi:2"
     "messages": [{"role": "user", "content": prompt}],
