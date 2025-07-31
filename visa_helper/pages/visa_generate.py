@@ -6,6 +6,22 @@ import base64
 import requests
 import logging
 
+import requests
+
+res = requests.post(
+    "http://localhost:11434/api/chat",
+    json={
+        "model": "deepseek-r1:1.5b",
+        "messages": [{"role": "user", "content": "你是谁？"}]
+    },
+    timeout=10
+)
+print(res.status_code)
+print(res.json())
+
+
+
+
 logging.basicConfig(level=logging.INFO)
 
 def call_ollama_local(prompt):
