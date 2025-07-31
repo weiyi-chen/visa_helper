@@ -10,12 +10,12 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 def call_ollama_local(prompt):
-    url = "http://127.0.0.1:11434/api/chat"
+    url = "192.168.1.142:11434/api/chat"
     payload = {
-        "model": "deepseek-r1:1.5b",
-        "messages": [{"role": "user", "content": prompt}],
-        "stream": False
-    }
+    "model": "mistral-chat",  # ✅ 或者 "mistral" / "phi:2"
+    "messages": [{"role": "user", "content": prompt}],
+    "stream": False
+}
 
     try:
         response = requests.post(url, json=payload, timeout=120)
