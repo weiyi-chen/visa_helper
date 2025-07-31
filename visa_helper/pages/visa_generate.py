@@ -18,7 +18,7 @@ def call_ollama_local(prompt):
     }
 
     try:
-        response = requests.post(url, json=payload, timeout=60)
+        response = requests.post(url, json=payload, timeout=120)
         response.raise_for_status()
         return response.json()["message"]["content"]
     except requests.exceptions.ConnectionError:
@@ -30,7 +30,7 @@ def call_ollama_local(prompt):
     except Exception as e:
         return f"❌ 本地模型调用失败：{e}"
     
-    
+
 # 设定标题
 st.set_page_config(page_title="签证助手生成页")
 st.title("🧳 一站式签证助手包生成")
