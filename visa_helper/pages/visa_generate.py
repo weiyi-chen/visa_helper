@@ -6,7 +6,7 @@ import base64
 import requests
 
 # ---------- 本地 Ollama 调用 ----------
-def ask_deepseek(prompt: str) -> str:
+def call_ollama_local(prompt: str) -> str:
     url = "http://192.168.1.142:11434/api/chat"
     payload = {
         "model": "deepseek-r1:1.5b",
@@ -19,7 +19,7 @@ def ask_deepseek(prompt: str) -> str:
         return resp.json()["message"]["content"]
     except Exception as e:
         return f"❌ 本地模型调用失败：{e}"
-    
+
 
 
 # 设定标题
