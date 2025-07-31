@@ -6,19 +6,21 @@ import base64
 import requests
 import logging
 
-import requests
-
-res = requests.post(
-    "http://localhost:11434/api/chat",
-    json={
-        "model": "deepseek-r1:1.5b",
-        "messages": [{"role": "user", "content": "你是谁？"}]
-    },
-    timeout=10
-)
-print(res.status_code)
-print(res.json())
-
+def test_connection():
+    try:
+        res = requests.post(
+            "http://localhost:11434/api/chat",
+            json={
+                "model": "deepseek-r1:1.5b",
+                "messages": [{"role": "user", "content": "你是谁？"}]
+            },
+            timeout=10
+        )
+        st.info(f"测试连接成功，状态码：{res.status_code}")
+    except Exception as e:
+        st.error(f"连接测试失败：{e}")
+if st.button("🔌 测试本地模型连接"):
+    test_connection()
 
 
 
@@ -39,10 +41,11 @@ def call_ollama_local(prompt):
     except requests.exceptions.ConnectionError as e:
         logging.error("Connection error: %s", e)
         return f"❌ 本地模型调用失败：连接错误"
-    except Exception as e:
-        logging.error("An error occurred: %s", e)
-        return f"❌ 本地模型调用失败：{e}"
-
+    except requests.exceptions.HTTPError as e:
+        if response.status_code == 400 and "model not found" in response.text.lower():
+            return "⚠️ 找不到模型 `deepseek-r1:1.5b`，请先运行：`ollama run deepseek-r1:1.5b`"
+        else:
+            return f"❌ 本地模型调用失败：{e}"
 
 # 设定标题
 st.set_page_config(page_title="签证助手生成页")
