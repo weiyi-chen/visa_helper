@@ -4,9 +4,11 @@ import streamlit as st
 import datetime
 import base64
 import requests
+import logging
 
-# ---------- 本地 Ollama 调用 ----------
-def call_ollama_local(prompt: str) -> str:
+logging.basicConfig(level=logging.INFO)
+
+def call_ollama_local(prompt):
     url = "http://192.168.1.142:11434/api/chat"
     payload = {
         "model": "deepseek-r1:1.5b",
@@ -14,12 +16,16 @@ def call_ollama_local(prompt: str) -> str:
         "stream": False
     }
     try:
-        resp = requests.post(url, json=payload, timeout=60)
-        resp.raise_for_status()
-        return resp.json()["message"]["content"]
+        logging.info("Attempting to connect to Ollama at %s", url)
+        response = requests.post(url, json=payload, timeout=60)
+        response.raise_for_status()
+        return response.json()["message"]["content"]
+    except requests.exceptions.ConnectionError as e:
+        logging.error("Connection error: %s", e)
+        return f"❌ 本地模型调用失败：连接错误"
     except Exception as e:
+        logging.error("An error occurred: %s", e)
         return f"❌ 本地模型调用失败：{e}"
-
 
 
 # 设定标题
