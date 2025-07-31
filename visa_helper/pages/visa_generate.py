@@ -6,47 +6,31 @@ import base64
 import requests
 import logging
 
-def test_connection():
-    try:
-        res = requests.post(
-            "http://localhost:11434/api/chat",
-            json={
-                "model": "deepseek-r1:1.5b",
-                "messages": [{"role": "user", "content": "你是谁？"}]
-            },
-            timeout=10
-        )
-        st.info(f"测试连接成功，状态码：{res.status_code}")
-    except Exception as e:
-        st.error(f"连接测试失败：{e}")
-if st.button("🔌 测试本地模型连接"):
-    test_connection()
-
-
 
 logging.basicConfig(level=logging.INFO)
 
 def call_ollama_local(prompt):
-    url = "http://192.168.1.142:11434/api/chat"
+    url = "http://127.0.0.1:11434/api/chat"
     payload = {
         "model": "deepseek-r1:1.5b",
         "messages": [{"role": "user", "content": prompt}],
         "stream": False
     }
+
     try:
-        logging.info("Attempting to connect to Ollama at %s", url)
         response = requests.post(url, json=payload, timeout=60)
         response.raise_for_status()
         return response.json()["message"]["content"]
-    except requests.exceptions.ConnectionError as e:
-        logging.error("Connection error: %s", e)
-        return f"❌ 本地模型调用失败：连接错误"
+    except requests.exceptions.ConnectionError:
+        return "❌ 无法连接 Ollama 服务，请确认你已运行 `ollama serve` 并使用了 `ollama run deepseek-r1:1.5b` 加载模型。"
     except requests.exceptions.HTTPError as e:
-        if response.status_code == 400 and "model not found" in response.text.lower():
-            return "⚠️ 找不到模型 `deepseek-r1:1.5b`，请先运行：`ollama run deepseek-r1:1.5b`"
-        else:
-            return f"❌ 本地模型调用失败：{e}"
-
+        if "model not found" in response.text.lower():
+            return "⚠️ 模型 `deepseek-r1:1.5b` 未找到，请先执行 `ollama run deepseek-r1:1.5b`。"
+        return f"❌ HTTP错误：{e}"
+    except Exception as e:
+        return f"❌ 本地模型调用失败：{e}"
+    
+    
 # 设定标题
 st.set_page_config(page_title="签证助手生成页")
 st.title("🧳 一站式签证助手包生成")
