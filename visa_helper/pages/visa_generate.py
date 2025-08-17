@@ -5,32 +5,37 @@ import datetime
 import base64
 import requests
 import logging
-
+import json
 
 logging.basicConfig(level=logging.INFO)
 
 def call_ollama_local(prompt):
-    url = "http://192.168.1.142:11434/api/chat"
+    url = "http://192.168.1.142:11434/api/generate"
     payload = {
-    "model": "mistral-chat",  # ✅ 或者 "mistral" / "phi:2"
-    "messages": [{"role": "user", "content": prompt}],
-    "stream": False
-}
+        "model": "mistral:latest",
+        "prompt": prompt,
+        "stream": False
+    }
 
     try:
-        response = requests.post(url, json=payload, timeout=120)
+        response = requests.post(url, json=payload, timeout=200)
         response.raise_for_status()
-        return response.json()["message"]["content"]
+
+        # 有些版本 Ollama 返回的是多行 JSON 组成的文本，需要逐行解析
+        results = []
+        for line in response.text.strip().splitlines():
+            data = json.loads(line)
+            results.append(data.get("response", ""))
+
+        return "".join(results)
+
     except requests.exceptions.ConnectionError:
-        return "❌ 无法连接 Ollama 服务，请确认你已运行 `ollama serve` 并使用了 `ollama run deepseek-r1:1.5b` 加载模型。"
+        return "❌ 无法连接 Ollama 服务，请确认你已运行 `ollama serve` 并使用了 `ollama run model_name` 加载模型。"
     except requests.exceptions.HTTPError as e:
-        if "model not found" in response.text.lower():
-            return "⚠️ 模型 `deepseek-r1:1.5b` 未找到，请先执行 `ollama run deepseek-r1:1.5b`。"
         return f"❌ HTTP错误：{e}"
     except Exception as e:
         return f"❌ 本地模型调用失败：{e}"
     
-
 # 设定标题
 st.set_page_config(page_title="签证助手生成页")
 st.title("🧳 一站式签证助手包生成")
@@ -84,8 +89,7 @@ if submitted:
     st.markdown(result)
 
     # 下载按钮（保存为 txt，后续可转 Word/PDF）
-    b64 = base64.b64encode(result.encode()).decode()
-    st.download_button("📥 下载清单（txt 格式）", data=b64, file_name="visa_package.txt", mime="text/plain")
+    st.download_button("📥 下载清单（txt 格式）", data=result, file_name="visa_package.txt", mime="text/plain")
 
     # 展示上传图片（可选）
     if uploaded_file:
